@@ -1,12 +1,21 @@
 import React, { useState } from 'react';
 import Game from './Game';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { db } from './firebase';
 
 function App() {
   const [lastScore, setLastScore] = useState(null);
 
-  const handleGameEnd = (score) => {
+  const handleGameEnd = async (score) => {
     setLastScore(score);
-    // TODO: enviar score ao Firebase/Firestore
+    try {
+      await addDoc(collection(db, 'scores'), {
+        score,
+        createdAt: serverTimestamp(),
+      });
+    } catch (err) {
+      console.error('Erro ao salvar pontuação', err);
+    }
   };
 
   return (
