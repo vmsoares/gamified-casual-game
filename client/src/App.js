@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Game from './Game';
+import Leaderboard from './Leaderboard';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { db } from './firebase';
 
@@ -27,6 +28,7 @@ function App() {
         <>
           <h2>Seu resultado: {lastScore} pontos!</h2>
           <button onClick={() => setLastScore(null)}>Jogar Novamente</button>
+                  <Leaderboard />
         </>
       )}
     </div>
